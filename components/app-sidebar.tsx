@@ -5,7 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 // import { Button } from "@/components/ui/button" // Removed unused import if not used, but likely needed.
-import { FileDiff, FileCode, CheckCircle, Clock, Home, ChevronLeft, ChevronRight, Settings } from "lucide-react"
+import { FileDiff, FileCode, CheckCircle, Clock, Home, ChevronLeft, ChevronRight, Settings, ArrowRightLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const items = [
@@ -33,6 +33,11 @@ const items = [
         title: "Time Converter",
         url: "/tools/timestamp",
         icon: Clock,
+    },
+    {
+        title: "Format Converter",
+        url: "/tools/converter",
+        icon: ArrowRightLeft,
     },
 ]
 

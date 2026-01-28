@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { FileDiff, FileCode, CheckCircle, Clock } from "lucide-react";
+import { FileDiff, FileCode, CheckCircle, Clock, ArrowRightLeft } from "lucide-react";
 
 export default function Home() {
   const tools = [
@@ -37,6 +37,13 @@ export default function Home() {
       icon: Clock,
       href: "/tools/timestamp",
       color: "text-orange-500",
+    },
+    {
+      title: "Format Converter",
+      description: "Convert data between JSON, XML, and YAML formats.",
+      icon: ArrowRightLeft,
+      href: "/tools/converter",
+      color: "text-pink-500",
     },
   ];
 
