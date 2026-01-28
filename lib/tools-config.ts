@@ -58,9 +58,8 @@ export const toolsConfig: Category[] = [
         tools: [
             { id: "json-formatter", name: "JSON Formatter & Validator", slug: "json-formatter", href: "/tools/json-formatter", icon: FileJson },
             { id: "yaml-formatter", name: "YAML Formatter & Validator", slug: "yaml-formatter", href: "/tools/yaml-formatter", icon: FileType },
-            { id: "xml-formatter", name: "XML Formatter", slug: "xml-formatter", href: "/tools/xml-formatter", icon: Code2 },
-            { id: "yaml-json-converter", name: "YAML ↔ JSON Converter", slug: "yaml-json-converter", href: "/tools/converter", icon: ArrowRightLeft },
-            { id: "csv-json-converter", name: "CSV ↔ JSON Converter", slug: "csv-json-converter", href: "/tools/formatter", icon: FileType },
+            { id: "xml-formatter", name: "XML Formatter & Validator", slug: "xml-formatter", href: "/tools/xml-formatter", icon: Code2 },
+            { id: "format-converter", name: "Format Converter (JSON/YAML/XML)", slug: "format-converter", href: "/tools/converter", icon: ArrowRightLeft },
             { id: "sql-formatter", name: "SQL Formatter", slug: "sql-formatter", icon: Database },
             { id: "markdown-previewer", name: "Markdown Previewer", slug: "markdown-previewer", icon: FileCode },
             { id: "toml-validator", name: "TOML Validator", slug: "toml-validator", icon: FileType }

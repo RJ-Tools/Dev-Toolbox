@@ -21,11 +21,23 @@ import { cn } from "@/lib/utils"
 
 type Format = "json" | "xml" | "yaml"
 
-export function ConverterViewer() {
+export interface ConverterViewerProps {
+    defaultSource?: Format
+    defaultTarget?: Format
+    disableSourceSelect?: boolean
+    disableTargetSelect?: boolean
+}
+
+export function ConverterViewer({
+    defaultSource = "json",
+    defaultTarget = "xml",
+    disableSourceSelect = false,
+    disableTargetSelect = false
+}: ConverterViewerProps) {
     const [input, setInput] = React.useState("")
     const [output, setOutput] = React.useState("")
-    const [sourceFormat, setSourceFormat] = React.useState<Format>("json")
-    const [targetFormat, setTargetFormat] = React.useState<Format>("xml")
+    const [sourceFormat, setSourceFormat] = React.useState<Format>(defaultSource)
+    const [targetFormat, setTargetFormat] = React.useState<Format>(defaultTarget)
     const [isLoading, setIsLoading] = React.useState(false)
 
     const validateInput = (text: string, format: Format): any => {
@@ -127,17 +139,19 @@ export function ConverterViewer() {
                 {/* Source Section */}
                 <div className="flex flex-col gap-2 h-full">
                     <div className="flex items-center justify-between">
-                        <Label>Source Format</Label>
-                        <Select value={sourceFormat} onValueChange={(v) => setSourceFormat(v as Format)}>
-                            <SelectTrigger className="w-[120px]">
-                                <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="json">JSON</SelectItem>
-                                <SelectItem value="xml">XML</SelectItem>
-                                <SelectItem value="yaml">YAML</SelectItem>
-                            </SelectContent>
-                        </Select>
+                        <Label>Source Format {disableSourceSelect ? `(${sourceFormat.toUpperCase()})` : ""}</Label>
+                        {!disableSourceSelect && (
+                            <Select value={sourceFormat} onValueChange={(v) => setSourceFormat(v as Format)}>
+                                <SelectTrigger className="w-[120px]">
+                                    <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="json">JSON</SelectItem>
+                                    <SelectItem value="xml">XML</SelectItem>
+                                    <SelectItem value="yaml">YAML</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        )}
                     </div>
                     <Textarea
                         placeholder={`Paste ${sourceFormat.toUpperCase()} here...`}
@@ -150,21 +164,25 @@ export function ConverterViewer() {
                 {/* Target Section */}
                 <div className="flex flex-col gap-2 h-full">
                     <div className="flex items-center justify-between">
-                        <Label>Target Format</Label>
+                        <Label>Target Format {disableTargetSelect ? `(${targetFormat.toUpperCase()})` : ""}</Label>
                         <div className="flex items-center gap-2">
-                            <Button variant="ghost" size="icon" onClick={handleSwap} title="Swap input/output">
-                                <ArrowRightLeft className="h-4 w-4" />
-                            </Button>
-                            <Select value={targetFormat} onValueChange={(v) => setTargetFormat(v as Format)}>
-                                <SelectTrigger className="w-[120px]">
-                                    <SelectValue />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="json">JSON</SelectItem>
-                                    <SelectItem value="xml">XML</SelectItem>
-                                    <SelectItem value="yaml">YAML</SelectItem>
-                                </SelectContent>
-                            </Select>
+                            {!disableSourceSelect && !disableTargetSelect && (
+                                <Button variant="ghost" size="icon" onClick={handleSwap} title="Swap input/output">
+                                    <ArrowRightLeft className="h-4 w-4" />
+                                </Button>
+                            )}
+                            {!disableTargetSelect && (
+                                <Select value={targetFormat} onValueChange={(v) => setTargetFormat(v as Format)}>
+                                    <SelectTrigger className="w-[120px]">
+                                        <SelectValue />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="json">JSON</SelectItem>
+                                        <SelectItem value="xml">XML</SelectItem>
+                                        <SelectItem value="yaml">YAML</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            )}
                             <Button onClick={handleConvert} disabled={isLoading}>
                                 <CheckCircle className="mr-2 h-4 w-4" />
                                 Convert
