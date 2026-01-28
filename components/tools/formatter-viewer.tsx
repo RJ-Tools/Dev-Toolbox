@@ -6,10 +6,14 @@ import yaml from "yaml"
 import Papa from "papaparse"
 import { diffWords, Change } from "diff" // Using diff for highlight
 import { toast } from "sonner"
+import { format as formatSql } from "sql-formatter"
+import { Parser as SqlParser } from "node-sql-parser"
+import toml from "@iarna/toml"
 
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { CodeTextarea } from "@/components/ui/code-textarea"
 import {
     Select,
     SelectContent,
@@ -18,14 +22,18 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { cn } from "@/lib/utils"
-// import { diffChars } from "diff"; // If needed
 
-type FormatType = "json" | "yaml" | "xml" | "csv"
+type FormatType = "json" | "yaml" | "xml" | "csv" | "sql" | "toml"
 
-export function FormatterViewer() {
+export interface FormatterViewerProps {
+    defaultType?: FormatType
+    hideSelector?: boolean
+}
+
+export function FormatterViewer({ defaultType = "json", hideSelector = false }: FormatterViewerProps) {
     const [input, setInput] = React.useState("")
     const [output, setOutput] = React.useState("")
-    const [type, setType] = React.useState<FormatType>("json")
+    const [type, setType] = React.useState<FormatType>(defaultType)
     const [error, setError] = React.useState<string | null>(null)
 
     // Diff View State
@@ -65,6 +73,32 @@ export function FormatterViewer() {
                         throw new Error(csvData.errors[0].message)
                     }
                     formatted = Papa.unparse(csvData.data, { quotes: true })
+                    break
+                case "sql":
+                    // Validator - non-blocking
+                    const parser = new SqlParser()
+                    try {
+                        parser.astify(input)
+                    } catch (e: any) {
+                        // Don't throw, just toast strict validation error but allow formatting
+                        // or ideally show it as a warning. For now, let's allow formatting to proceed
+                        // and perhaps append a warning or just rely on formatter.
+                        // User reported "not working", likely due to blocking error.
+                        // We will store the error but NOT throw, so we can see output.
+                        console.warn("SQL Validation failed:", e.message)
+                        toast.warning("SQL Syntax invalid or dialect not supported")
+                    }
+                    // Formatter
+                    formatted = formatSql(input, { language: 'sql' })
+                    break
+                case "toml":
+                    try {
+                        const tomlObj = toml.parse(input)
+                        // TOML stringify usually standardizes format
+                        formatted = toml.stringify(tomlObj)
+                    } catch (e: any) {
+                        throw new Error("Invalid TOML: " + e.message)
+                    }
                     break
             }
             setOutput(formatted)
@@ -130,19 +164,23 @@ export function FormatterViewer() {
     return (
         <div className="flex flex-col gap-4 h-[calc(100vh-140px)] min-h-[500px]">
             <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold">Formatter</h2>
+                <h2 className="text-xl font-semibold">{hideSelector ? `${type.toUpperCase()} Formatter` : "Formatter"}</h2>
                 <div className="flex items-center gap-2">
-                    <Select value={type} onValueChange={(v) => { setType(v as FormatType); setShowDiff(false); }}>
-                        <SelectTrigger className="w-[120px]">
-                            <SelectValue placeholder="Select type" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="json">JSON</SelectItem>
-                            <SelectItem value="yaml">YAML</SelectItem>
-                            <SelectItem value="xml">XML</SelectItem>
-                            <SelectItem value="csv">CSV</SelectItem>
-                        </SelectContent>
-                    </Select>
+                    {!hideSelector && (
+                        <Select value={type} onValueChange={(v) => { setType(v as FormatType); setShowDiff(false); }}>
+                            <SelectTrigger className="w-[120px]">
+                                <SelectValue placeholder="Select type" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="json">JSON</SelectItem>
+                                <SelectItem value="yaml">YAML</SelectItem>
+                                <SelectItem value="xml">XML</SelectItem>
+                                <SelectItem value="csv">CSV</SelectItem>
+                                <SelectItem value="sql">SQL</SelectItem>
+                                <SelectItem value="toml">TOML</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    )}
 
                     <Button onClick={handleFormat}>
                         <FileCode className="mr-2 h-4 w-4" />
@@ -165,10 +203,10 @@ export function FormatterViewer() {
             <div className="grid h-full gap-4 md:grid-cols-2 pb-4">
                 <div className="flex flex-col gap-2 h-full">
                     <Label htmlFor="input">Input</Label>
-                    <Textarea
+                    <CodeTextarea
                         id="input"
                         placeholder={`Paste ${type.toUpperCase()} here...`}
-                        className="flex-1 resize-none font-mono text-sm h-full"
+                        className="h-full"
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                     />
@@ -188,10 +226,10 @@ export function FormatterViewer() {
                                 })}
                             </div>
                         ) : (
-                            <Textarea
+                            <CodeTextarea
                                 id="output"
                                 placeholder="Formatted output will appear here..."
-                                className={cn("h-full resize-none font-mono text-sm", error && "border-red-500")}
+                                className={cn("h-full", error && "border-red-500 ring-1 ring-red-500")}
                                 value={error ? error : output}
                                 readOnly
                             />
@@ -200,7 +238,7 @@ export function FormatterViewer() {
                             <Button
                                 size="icon"
                                 variant="ghost"
-                                className="absolute top-2 right-2"
+                                className="absolute top-2 right-6 z-10"
                                 onClick={handleCopy}
                             >
                                 <Copy className="h-4 w-4" />
