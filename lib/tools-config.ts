@@ -74,10 +74,10 @@ export const toolsConfig: Category[] = [
             { id: "base64", name: "Base64 Encode / Decode", slug: "base64-encoder-decoder", href: "/tools/base64-encoder-decoder", icon: Code2 },
             { id: "url-encoder", name: "URL Encode / Decode", slug: "url-encoder-decoder", href: "/tools/url-encoder-decoder", icon: LinkIcon },
             { id: "jwt-decoder", name: "JWT Decoder", slug: "jwt-decoder", href: "/tools/jwt-decoder", icon: Shield },
-            { id: "hash-generator", name: "Hash Generator (MD5, SHA)", slug: "hash-generator", icon: Hash },
-            { id: "hmac-generator", name: "HMAC Generator", slug: "hmac-generator", icon: Key },
-            { id: "bcrypt-tool", name: "Bcrypt Hash Tool", slug: "bcrypt-hash-tool", icon: Lock },
-            { id: "html-escape", name: "HTML Escape / Unescape", slug: "html-escape-unescape", icon: Code2 }
+            { id: "hash-generator", name: "Hash Generator (MD5, SHA)", slug: "hash-generator", href: "/tools/hash-generator", icon: Hash },
+            { id: "hmac-generator", name: "HMAC Generator", slug: "hmac-generator", href: "/tools/hmac-generator", icon: Key },
+            { id: "bcrypt-tool", name: "Bcrypt Hash Tool", slug: "bcrypt-hash-tool", href: "/tools/bcrypt-hash-tool", icon: Lock },
+            { id: "html-escape", name: "HTML Escape / Unescape", slug: "html-escape-unescape", href: "/tools/html-escape-unescape", icon: Code2 }
         ]
     },
     {
