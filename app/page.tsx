@@ -1,78 +1,44 @@
 import Link from "next/link";
 import {
   Card,
-  CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { FileDiff, FileCode, CheckCircle, Clock, ArrowRightLeft } from "lucide-react";
+import { toolsConfig } from "@/lib/tools-config"; // Use the central config
 
 export default function Home() {
-  const tools = [
-    {
-      title: "Diff Checker",
-      description: "Compare two text files or code snippets to find differences.",
-      icon: FileDiff,
-      href: "/tools/diff",
-      color: "text-blue-500",
-    },
-    {
-      title: "Formatter",
-      description: "Format JSON, YAML, XML, and CSV files instantly.",
-      icon: FileCode,
-      href: "/tools/formatter",
-      color: "text-green-500",
-    },
-    {
-      title: "Validator",
-      description: "Validate and automatically fix JSON, YAML, and XML content.",
-      icon: CheckCircle,
-      href: "/tools/validator",
-      color: "text-purple-500",
-    },
-    {
-      title: "Timestamp Converter",
-      description: "Convert timestamps between various formats (UTC, Epoch, ISO).",
-      icon: Clock,
-      href: "/tools/timestamp",
-      color: "text-orange-500",
-    },
-    {
-      title: "Format Converter",
-      description: "Convert data between JSON, XML, and YAML formats.",
-      icon: ArrowRightLeft,
-      href: "/tools/converter",
-      color: "text-pink-500",
-    },
-  ];
-
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-8 pb-10">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
         <p className="text-muted-foreground">
-          Welcome to your developer toolkit. Select a tool to get started.
+          Welcome to your developer toolkit. Select a category or tool to get started.
         </p>
       </div>
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {tools.map((tool) => (
-          <Link key={tool.title} href={tool.href}>
-            <Card className="hover:bg-muted/50 transition-colors h-full">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  {tool.title}
-                </CardTitle>
-                <tool.icon className={`h-4 w-4 ${tool.color}`} />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold"></div>
-                <CardDescription className="mt-2">
-                  {tool.description}
-                </CardDescription>
-              </CardContent>
-            </Card>
-          </Link>
+
+      <div className="space-y-8">
+        {toolsConfig.map((category) => (
+          <div key={category.id} className="space-y-4">
+            <h2 className="text-xl font-semibold flex items-center gap-2 border-b pb-2">
+              <category.icon className="w-5 h-5 text-primary" />
+              {category.name}
+            </h2>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {category.tools.map((tool) => (
+                <Link key={tool.id} href={tool.href || `/tools/${tool.slug}`}>
+                  <Card className="hover:border-primary/50 transition-all cursor-pointer h-full hover:shadow-md">
+                    <CardHeader className="pb-2">
+                      <CardTitle className="flex items-center gap-2 text-base">
+                        {tool.name}
+                      </CardTitle>
+                    </CardHeader>
+                    {/* If we had description per tool, we'd show it here. For now we only have it on category or inferred. */}
+                    {/* The config has descriptions for categories, but not all tools. Let's skip tool description for cleaner look or fallback. */}
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          </div>
         ))}
       </div>
     </div>
