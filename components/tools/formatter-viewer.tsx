@@ -22,10 +22,15 @@ import { cn } from "@/lib/utils"
 
 type FormatType = "json" | "yaml" | "xml" | "csv"
 
-export function FormatterViewer() {
+export interface FormatterViewerProps {
+    defaultType?: FormatType
+    hideSelector?: boolean
+}
+
+export function FormatterViewer({ defaultType = "json", hideSelector = false }: FormatterViewerProps) {
     const [input, setInput] = React.useState("")
     const [output, setOutput] = React.useState("")
-    const [type, setType] = React.useState<FormatType>("json")
+    const [type, setType] = React.useState<FormatType>(defaultType)
     const [error, setError] = React.useState<string | null>(null)
 
     // Diff View State
@@ -130,19 +135,21 @@ export function FormatterViewer() {
     return (
         <div className="flex flex-col gap-4 h-[calc(100vh-140px)] min-h-[500px]">
             <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold">Formatter</h2>
+                <h2 className="text-xl font-semibold">{hideSelector ? `${type.toUpperCase()} Formatter` : "Formatter"}</h2>
                 <div className="flex items-center gap-2">
-                    <Select value={type} onValueChange={(v) => { setType(v as FormatType); setShowDiff(false); }}>
-                        <SelectTrigger className="w-[120px]">
-                            <SelectValue placeholder="Select type" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="json">JSON</SelectItem>
-                            <SelectItem value="yaml">YAML</SelectItem>
-                            <SelectItem value="xml">XML</SelectItem>
-                            <SelectItem value="csv">CSV</SelectItem>
-                        </SelectContent>
-                    </Select>
+                    {!hideSelector && (
+                        <Select value={type} onValueChange={(v) => { setType(v as FormatType); setShowDiff(false); }}>
+                            <SelectTrigger className="w-[120px]">
+                                <SelectValue placeholder="Select type" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="json">JSON</SelectItem>
+                                <SelectItem value="yaml">YAML</SelectItem>
+                                <SelectItem value="xml">XML</SelectItem>
+                                <SelectItem value="csv">CSV</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    )}
 
                     <Button onClick={handleFormat}>
                         <FileCode className="mr-2 h-4 w-4" />

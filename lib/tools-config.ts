@@ -56,9 +56,9 @@ export const toolsConfig: Category[] = [
         icon: FileCode,
         description: "Format, validate, and convert structured data",
         tools: [
-            { id: "json-formatter", name: "JSON Formatter & Validator", slug: "json-formatter", href: "/tools/formatter", icon: FileJson },
-            { id: "yaml-formatter", name: "YAML Formatter & Validator", slug: "yaml-formatter", href: "/tools/formatter", icon: FileType },
-            { id: "xml-formatter", name: "XML Formatter", slug: "xml-formatter", href: "/tools/formatter", icon: Code2 },
+            { id: "json-formatter", name: "JSON Formatter & Validator", slug: "json-formatter", href: "/tools/json-formatter", icon: FileJson },
+            { id: "yaml-formatter", name: "YAML Formatter & Validator", slug: "yaml-formatter", href: "/tools/yaml-formatter", icon: FileType },
+            { id: "xml-formatter", name: "XML Formatter", slug: "xml-formatter", href: "/tools/xml-formatter", icon: Code2 },
             { id: "yaml-json-converter", name: "YAML ↔ JSON Converter", slug: "yaml-json-converter", href: "/tools/converter", icon: ArrowRightLeft },
             { id: "csv-json-converter", name: "CSV ↔ JSON Converter", slug: "csv-json-converter", href: "/tools/formatter", icon: FileType },
             { id: "sql-formatter", name: "SQL Formatter", slug: "sql-formatter", icon: Database },
