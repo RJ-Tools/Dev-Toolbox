@@ -88,9 +88,9 @@ export const toolsConfig: Category[] = [
         tools: [
             { id: "timestamp-converter", name: "Unix Timestamp Converter", slug: "timestamp-converter", href: "/tools/timestamp", icon: Clock },
             { id: "timezone-converter", name: "Timezone Converter", slug: "timezone-converter", href: "/tools/timezone-converter", icon: Globe },
-            { id: "cron-parser", name: "Cron Expression Parser", slug: "cron-parser", icon: Timer },
-            { id: "date-diff", name: "Date Difference Calculator", slug: "date-difference", icon: Calendar },
-            { id: "iso-converter", name: "ISO 8601 Converter", slug: "iso-date-converter", icon: Activity }
+            { id: "cron-parser", name: "Cron Expression Parser", slug: "cron-parser", href: "/tools/cron-parser", icon: Timer },
+            { id: "date-diff", name: "Date Difference Calculator", slug: "date-difference", href: "/tools/date-difference", icon: Calendar },
+            { id: "iso-converter", name: "ISO 8601 Converter", slug: "iso-date-converter", href: "/tools/iso-date-converter", icon: Activity }
         ]
     },
     {
