@@ -28,6 +28,21 @@ export function AppSidebar() {
         if (saved) setCollapsed(JSON.parse(saved))
     }, [])
 
+    // Update open item when pathname changes (e.g. navigation from dashboard)
+    React.useEffect(() => {
+        if (!pathname || pathname === "/") return
+
+        for (const category of toolsConfig) {
+            const hasActiveTool = category.tools.some(tool =>
+                (tool.href || `/tools/${tool.slug}`) === pathname
+            )
+            if (hasActiveTool) {
+                setOpenItem(category.id)
+                break
+            }
+        }
+    }, [pathname])
+
     // Update local storage when collapsed changes
     React.useEffect(() => {
         localStorage.setItem("sidebar-collapsed", JSON.stringify(collapsed))
