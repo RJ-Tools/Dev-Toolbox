@@ -29,6 +29,7 @@ export default function Home() {
                   <Card className="hover:border-primary/50 transition-all cursor-pointer h-full hover:shadow-md">
                     <CardHeader className="pb-2">
                       <CardTitle className="flex items-center gap-2 text-base">
+                        <tool.icon className="h-4 w-4 text-muted-foreground" />
                         {tool.name}
                       </CardTitle>
                     </CardHeader>

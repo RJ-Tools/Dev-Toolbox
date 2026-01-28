@@ -85,10 +85,11 @@ export function AppSidebar() {
                                                     key={tool.id}
                                                     href={tool.href || `/tools/${tool.slug}`}
                                                     className={cn(
-                                                        "block rounded-md px-3 py-1.5 text-sm transition-colors hover:text-foreground",
+                                                        "flex items-center gap-2 rounded-md px-3 py-1.5 text-sm transition-colors hover:text-foreground",
                                                         pathname === (tool.href || `/tools/${tool.slug}`) ? "bg-secondary text-foreground font-medium" : "text-muted-foreground hover:bg-muted/50"
                                                     )}
                                                 >
+                                                    <tool.icon className="h-3.5 w-3.5 opacity-70" />
                                                     {tool.name}
                                                 </Link>
                                             ))}
@@ -119,8 +120,9 @@ export function AppSidebar() {
                                                 <Link
                                                     key={tool.id}
                                                     href={tool.href || `/tools/${tool.slug}`}
-                                                    className="block rounded-sm px-2 py-1 text-xs hover:bg-muted"
+                                                    className="flex items-center gap-2 rounded-sm px-2 py-1 text-xs hover:bg-muted"
                                                 >
+                                                    <tool.icon className="h-3 w-3 opacity-70" />
                                                     {tool.name}
                                                 </Link>
                                             ))}
