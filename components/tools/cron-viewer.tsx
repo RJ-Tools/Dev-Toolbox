@@ -1,8 +1,7 @@
 "use client"
 
 import * as React from "react"
-// @ts-ignore
-import parser from "cron-parser"
+import { CronExpressionParser } from "cron-parser"
 import { Clock, RotateCcw, Calendar, AlertCircle } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -24,8 +23,7 @@ export function CronViewer() {
         }
 
         try {
-            // @ts-ignore
-            const interval = parser.parseExpression(expression)
+            const interval = CronExpressionParser.parse(expression)
             const dates = []
             for (let i = 0; i < 5; i++) {
                 dates.push(interval.next().toString())
