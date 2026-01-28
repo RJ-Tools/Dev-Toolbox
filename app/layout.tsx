@@ -20,6 +20,14 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Developer Tools",
   description: "One-stop solution for developer tools",
+  icons: {
+    icon: [
+      { url: "/dev-tools-favicon.png", sizes: "any" },
+      { url: "/dev-tools-favicon.png", type: "image/png" },
+    ],
+    shortcut: "/dev-tools-favicon.png",
+    apple: "/dev-tools-favicon.png",
+  },
 };
 
 export default function RootLayout({

@@ -58,11 +58,12 @@ export function AppSidebar() {
         >
             <div className="flex h-14 items-center border-b px-4 lg:h-[60px] shrink-0">
                 <Link href="/" className={cn("flex items-center gap-2 font-semibold overflow-hidden whitespace-nowrap", collapsed && "justify-center px-0")}>
-                    {collapsed ? <span className="text-xl font-bold bg-primary text-primary-foreground h-8 w-8 flex items-center justify-center rounded-lg">DT</span> :
-                        <div className="flex items-center gap-2">
-                            <span className="text-xl font-bold bg-primary text-primary-foreground h-8 w-8 flex items-center justify-center rounded-lg">DT</span>
-                            <span>DevToolbox</span>
-                        </div>}
+                    <img
+                        src="/dev-tools-main-logo.png"
+                        alt="Logo"
+                        className="h-8 w-auto object-contain"
+                    />
+                    {!collapsed && <span>DevToolbox</span>}
                 </Link>
             </div>
 
