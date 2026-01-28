@@ -71,8 +71,8 @@ export const toolsConfig: Category[] = [
         icon: Lock,
         description: "Encode, decode, hash, and secure data",
         tools: [
-            { id: "base64", name: "Base64 Encode / Decode", slug: "base64-encoder-decoder", icon: Code2 },
-            { id: "url-encoder", name: "URL Encode / Decode", slug: "url-encoder-decoder", icon: LinkIcon },
+            { id: "base64", name: "Base64 Encode / Decode", slug: "base64-encoder-decoder", href: "/tools/base64-encoder-decoder", icon: Code2 },
+            { id: "url-encoder", name: "URL Encode / Decode", slug: "url-encoder-decoder", href: "/tools/url-encoder-decoder", icon: LinkIcon },
             { id: "jwt-decoder", name: "JWT Decoder", slug: "jwt-decoder", icon: Shield },
             { id: "hash-generator", name: "Hash Generator (MD5, SHA)", slug: "hash-generator", icon: Hash },
             { id: "hmac-generator", name: "HMAC Generator", slug: "hmac-generator", icon: Key },
