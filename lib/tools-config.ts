@@ -29,7 +29,10 @@ import {
     Regex,
     Copy,
     Terminal,
-    Server
+    Server,
+    ArrowLeftRight,
+    TerminalIcon,
+    ArrowDownAZ
 } from "lucide-react";
 
 export type Tool = {
@@ -127,10 +130,8 @@ export const toolsConfig: Category[] = [
         icon: Globe,
         description: "Work with APIs, requests, and web data",
         tools: [
-            { id: "http-header-parser", name: "HTTP Header Parser", slug: "http-header-parser", icon: Server },
-            { id: "curl-to-fetch", name: "cURL → Fetch Converter", slug: "curl-to-fetch", icon: Terminal },
-            { id: "jsonpath-tester", name: "JSONPath Tester", slug: "jsonpath-tester", icon: Search },
-            { id: "graphql-formatter", name: "GraphQL Query Formatter", slug: "graphql-formatter", icon: Braces }
+            { id: "http-headers", name: "HTTP Header Parser", slug: "http-header-parser", href: "/tools/http-header-parser", icon: ArrowLeftRight },
+            { id: "curl-converter", name: "cURL to Fetch Converter", slug: "curl-to-fetch", href: "/tools/curl-to-fetch", icon: TerminalIcon },
         ]
     }
 ];
