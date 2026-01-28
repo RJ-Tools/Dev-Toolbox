@@ -113,12 +113,12 @@ export const toolsConfig: Category[] = [
         icon: Type,
         description: "Manipulate, compare, and analyze text",
         tools: [
-            { id: "regex-tester", name: "Regex Tester", slug: "regex-tester", icon: Regex },
+            { id: "regex-tester", name: "Regex Tester", slug: "regex-tester", href: "/tools/regex-tester", icon: Regex },
             { id: "diff-checker", name: "Text Diff Checker", slug: "diff-checker", href: "/tools/diff", icon: FileDiff },
-            { id: "case-converter", name: "Text Case Converter", slug: "text-case-converter", icon: CaseSensitive },
-            { id: "line-sorter", name: "Line Sorter / Deduplicator", slug: "line-sorter", icon: ListOrdered },
-            { id: "word-counter", name: "Word & Character Counter", slug: "word-counter", icon: AlignLeft },
-            { id: "color-converter", name: "Color Converter (HEX/RGB/HSL)", slug: "color-converter", icon: Palette }
+            { id: "case-converter", name: "Text Case Converter", slug: "text-case-converter", href: "/tools/text-case-converter", icon: CaseSensitive },
+            { id: "line-sorter", name: "Line Sorter / Deduplicator", slug: "line-sorter", href: "/tools/line-sorter", icon: ListOrdered },
+            { id: "word-counter", name: "Word & Character Counter", slug: "word-counter", href: "/tools/word-counter", icon: AlignLeft },
+            { id: "color-converter", name: "Color Converter (HEX/RGB/HSL)", slug: "color-converter", href: "/tools/color-converter", icon: Palette }
         ]
     },
     {
