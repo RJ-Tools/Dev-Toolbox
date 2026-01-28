@@ -74,7 +74,8 @@ export function ConverterViewer({
                 } else if (sourceFormat === "yaml") {
                     intermediateObj = yaml.parse(input)
                 } else if (sourceFormat === "xml") {
-                    intermediateObj = convert.xml2js(input, { compact: true, nativeType: true })
+                    const rawObj = convert.xml2js(input, { compact: true, nativeType: true })
+                    intermediateObj = flattenXmlOutput(rawObj)
                 }
             } catch (e) {
                 throw new Error(`Invalid ${sourceFormat.toUpperCase()} input`)
@@ -104,6 +105,30 @@ export function ConverterViewer({
         } finally {
             setIsLoading(false)
         }
+    }
+
+    // Helper to remove _text validation issues from xml-js compact mode
+    const flattenXmlOutput = (obj: any): any => {
+        if (Array.isArray(obj)) {
+            return obj.map(flattenXmlOutput)
+        } else if (typeof obj === 'object' && obj !== null) {
+            // Check if object has only _text property
+            const keys = Object.keys(obj)
+            if (keys.length === 1 && keys[0] === '_text') {
+                return obj._text
+            }
+            // If it has _attributes and _text, we might want to keep it or flatten if possible.
+            // For now, let's strictly handle the case user complained about: simple nodes.
+            // If user has attributes, the structure is necessary.
+
+            // Recursively process all properties
+            const newObj: any = {}
+            for (const key in obj) {
+                newObj[key] = flattenXmlOutput(obj[key])
+            }
+            return newObj
+        }
+        return obj
     }
 
     const handleCopy = () => {
