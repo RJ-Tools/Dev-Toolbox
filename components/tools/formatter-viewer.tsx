@@ -8,6 +8,7 @@ import { diffWords, Change } from "diff" // Using diff for highlight
 import { toast } from "sonner"
 import { format as formatSql } from "sql-formatter"
 import { Parser as SqlParser } from "node-sql-parser"
+import toml from "@iarna/toml"
 
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
@@ -22,7 +23,7 @@ import {
 } from "@/components/ui/select"
 import { cn } from "@/lib/utils"
 
-type FormatType = "json" | "yaml" | "xml" | "csv" | "sql"
+type FormatType = "json" | "yaml" | "xml" | "csv" | "sql" | "toml"
 
 export interface FormatterViewerProps {
     defaultType?: FormatType
@@ -89,6 +90,15 @@ export function FormatterViewer({ defaultType = "json", hideSelector = false }: 
                     }
                     // Formatter
                     formatted = formatSql(input, { language: 'sql' })
+                    break
+                case "toml":
+                    try {
+                        const tomlObj = toml.parse(input)
+                        // TOML stringify usually standardizes format
+                        formatted = toml.stringify(tomlObj)
+                    } catch (e: any) {
+                        throw new Error("Invalid TOML: " + e.message)
+                    }
                     break
             }
             setOutput(formatted)
@@ -167,6 +177,7 @@ export function FormatterViewer({ defaultType = "json", hideSelector = false }: 
                                 <SelectItem value="xml">XML</SelectItem>
                                 <SelectItem value="csv">CSV</SelectItem>
                                 <SelectItem value="sql">SQL</SelectItem>
+                                <SelectItem value="toml">TOML</SelectItem>
                             </SelectContent>
                         </Select>
                     )}
