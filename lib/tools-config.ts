@@ -29,7 +29,10 @@ import {
     Regex,
     Copy,
     Terminal,
-    Server
+    Server,
+    ArrowLeftRight,
+    TerminalIcon,
+    ArrowDownAZ
 } from "lucide-react";
 
 export type Tool = {
@@ -57,6 +60,8 @@ export const toolsConfig: Category[] = [
         description: "Format, validate, and convert structured data",
         tools: [
             { id: "json-formatter", name: "JSON Formatter & Validator", slug: "json-formatter", href: "/tools/json-formatter", icon: FileJson },
+            { id: "jsonpath-tester", name: "JSONPath Tester", slug: "jsonpath-tester", href: "/tools/jsonpath-tester", icon: Search },
+            { id: "graphql-formatter", name: "GraphQL Query Formatter", slug: "graphql-formatter", href: "/tools/graphql-formatter", icon: Braces },
             { id: "yaml-formatter", name: "YAML Formatter & Validator", slug: "yaml-formatter", href: "/tools/yaml-formatter", icon: FileType },
             { id: "xml-formatter", name: "XML Formatter & Validator", slug: "xml-formatter", href: "/tools/xml-formatter", icon: Code2 },
             { id: "format-converter", name: "Format Converter (JSON/YAML/XML)", slug: "format-converter", href: "/tools/converter", icon: ArrowRightLeft },
@@ -88,9 +93,9 @@ export const toolsConfig: Category[] = [
         tools: [
             { id: "timestamp-converter", name: "Unix Timestamp Converter", slug: "timestamp-converter", href: "/tools/timestamp", icon: Clock },
             { id: "timezone-converter", name: "Timezone Converter", slug: "timezone-converter", href: "/tools/timezone-converter", icon: Globe },
-            { id: "cron-parser", name: "Cron Expression Parser", slug: "cron-parser", icon: Timer },
-            { id: "date-diff", name: "Date Difference Calculator", slug: "date-difference", icon: Calendar },
-            { id: "iso-converter", name: "ISO 8601 Converter", slug: "iso-date-converter", icon: Activity }
+            { id: "cron-parser", name: "Cron Expression Parser", slug: "cron-parser", href: "/tools/cron-parser", icon: Timer },
+            { id: "date-diff", name: "Date Difference Calculator", slug: "date-difference", href: "/tools/date-difference", icon: Calendar },
+            { id: "iso-converter", name: "ISO 8601 Converter", slug: "iso-date-converter", href: "/tools/iso-date-converter", icon: Activity }
         ]
     },
     {
@@ -99,12 +104,12 @@ export const toolsConfig: Category[] = [
         icon: Shuffle,
         description: "Generate IDs, test data, and random values",
         tools: [
-            { id: "uuid-generator", name: "UUID Generator", slug: "uuid-generator", icon: Hash },
-            { id: "uuid-validator", name: "UUID Validator", slug: "uuid-validator", icon: CheckCircle },
-            { id: "random-string", name: "Random String Generator", slug: "random-string-generator", icon: Type },
-            { id: "fake-data", name: "Fake Data Generator", slug: "fake-data-generator", icon: Copy },
-            { id: "password-generator", name: "Password Generator", slug: "password-generator", icon: Key },
-            { id: "slug-generator", name: "Slug Generator", slug: "slug-generator", icon: LinkIcon }
+            { id: "uuid-generator", name: "UUID Generator", slug: "uuid-generator", href: "/tools/uuid-generator", icon: Hash },
+            { id: "uuid-validator", name: "UUID Validator", slug: "uuid-validator", href: "/tools/uuid-validator", icon: CheckCircle },
+            { id: "random-string", name: "Random String Generator", slug: "random-string-generator", href: "/tools/random-string-generator", icon: Type },
+            { id: "fake-data", name: "Fake Data Generator", slug: "fake-data-generator", href: "/tools/fake-data-generator", icon: Copy },
+            { id: "password-generator", name: "Password Generator", slug: "password-generator", href: "/tools/password-generator", icon: Key },
+            { id: "slug-generator", name: "Slug Generator", slug: "slug-generator", href: "/tools/slug-generator", icon: LinkIcon }
         ]
     },
     {
@@ -113,12 +118,12 @@ export const toolsConfig: Category[] = [
         icon: Type,
         description: "Manipulate, compare, and analyze text",
         tools: [
-            { id: "regex-tester", name: "Regex Tester", slug: "regex-tester", icon: Regex },
+            { id: "regex-tester", name: "Regex Tester", slug: "regex-tester", href: "/tools/regex-tester", icon: Regex },
             { id: "diff-checker", name: "Text Diff Checker", slug: "diff-checker", href: "/tools/diff", icon: FileDiff },
-            { id: "case-converter", name: "Text Case Converter", slug: "text-case-converter", icon: CaseSensitive },
-            { id: "line-sorter", name: "Line Sorter / Deduplicator", slug: "line-sorter", icon: ListOrdered },
-            { id: "word-counter", name: "Word & Character Counter", slug: "word-counter", icon: AlignLeft },
-            { id: "color-converter", name: "Color Converter (HEX/RGB/HSL)", slug: "color-converter", icon: Palette }
+            { id: "case-converter", name: "Text Case Converter", slug: "text-case-converter", href: "/tools/text-case-converter", icon: CaseSensitive },
+            { id: "line-sorter", name: "Line Sorter / Deduplicator", slug: "line-sorter", href: "/tools/line-sorter", icon: ListOrdered },
+            { id: "word-counter", name: "Word & Character Counter", slug: "word-counter", href: "/tools/word-counter", icon: AlignLeft },
+            { id: "color-converter", name: "Color Converter (HEX/RGB/HSL)", slug: "color-converter", href: "/tools/color-converter", icon: Palette }
         ]
     },
     {
@@ -127,10 +132,8 @@ export const toolsConfig: Category[] = [
         icon: Globe,
         description: "Work with APIs, requests, and web data",
         tools: [
-            { id: "http-header-parser", name: "HTTP Header Parser", slug: "http-header-parser", icon: Server },
-            { id: "curl-to-fetch", name: "cURL → Fetch Converter", slug: "curl-to-fetch", icon: Terminal },
-            { id: "jsonpath-tester", name: "JSONPath Tester", slug: "jsonpath-tester", icon: Search },
-            { id: "graphql-formatter", name: "GraphQL Query Formatter", slug: "graphql-formatter", icon: Braces }
+            { id: "http-headers", name: "HTTP Header Parser", slug: "http-header-parser", href: "/tools/http-header-parser", icon: ArrowLeftRight },
+            { id: "curl-converter", name: "cURL to Fetch Converter", slug: "curl-to-fetch", href: "/tools/curl-to-fetch", icon: TerminalIcon },
         ]
     }
 ];
