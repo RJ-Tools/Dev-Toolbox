@@ -60,6 +60,8 @@ export const toolsConfig: Category[] = [
         description: "Format, validate, and convert structured data",
         tools: [
             { id: "json-formatter", name: "JSON Formatter & Validator", slug: "json-formatter", href: "/tools/json-formatter", icon: FileJson },
+            { id: "jsonpath-tester", name: "JSONPath Tester", slug: "jsonpath-tester", href: "/tools/jsonpath-tester", icon: Search },
+            { id: "graphql-formatter", name: "GraphQL Query Formatter", slug: "graphql-formatter", href: "/tools/graphql-formatter", icon: Braces },
             { id: "yaml-formatter", name: "YAML Formatter & Validator", slug: "yaml-formatter", href: "/tools/yaml-formatter", icon: FileType },
             { id: "xml-formatter", name: "XML Formatter & Validator", slug: "xml-formatter", href: "/tools/xml-formatter", icon: Code2 },
             { id: "format-converter", name: "Format Converter (JSON/YAML/XML)", slug: "format-converter", href: "/tools/converter", icon: ArrowRightLeft },
