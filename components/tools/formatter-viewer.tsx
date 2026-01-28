@@ -6,6 +6,8 @@ import yaml from "yaml"
 import Papa from "papaparse"
 import { diffWords, Change } from "diff" // Using diff for highlight
 import { toast } from "sonner"
+import { format as formatSql } from "sql-formatter"
+import { Parser as SqlParser } from "node-sql-parser"
 
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
@@ -18,9 +20,8 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { cn } from "@/lib/utils"
-// import { diffChars } from "diff"; // If needed
 
-type FormatType = "json" | "yaml" | "xml" | "csv"
+type FormatType = "json" | "yaml" | "xml" | "csv" | "sql"
 
 export interface FormatterViewerProps {
     defaultType?: FormatType
@@ -70,6 +71,23 @@ export function FormatterViewer({ defaultType = "json", hideSelector = false }: 
                         throw new Error(csvData.errors[0].message)
                     }
                     formatted = Papa.unparse(csvData.data, { quotes: true })
+                    break
+                case "sql":
+                    // Validator - non-blocking
+                    const parser = new SqlParser()
+                    try {
+                        parser.astify(input)
+                    } catch (e: any) {
+                        // Don't throw, just toast strict validation error but allow formatting
+                        // or ideally show it as a warning. For now, let's allow formatting to proceed
+                        // and perhaps append a warning or just rely on formatter.
+                        // User reported "not working", likely due to blocking error.
+                        // We will store the error but NOT throw, so we can see output.
+                        console.warn("SQL Validation failed:", e.message)
+                        toast.warning("SQL Syntax invalid or dialect not supported")
+                    }
+                    // Formatter
+                    formatted = formatSql(input, { language: 'sql' })
                     break
             }
             setOutput(formatted)
@@ -147,6 +165,7 @@ export function FormatterViewer({ defaultType = "json", hideSelector = false }: 
                                 <SelectItem value="yaml">YAML</SelectItem>
                                 <SelectItem value="xml">XML</SelectItem>
                                 <SelectItem value="csv">CSV</SelectItem>
+                                <SelectItem value="sql">SQL</SelectItem>
                             </SelectContent>
                         </Select>
                     )}
