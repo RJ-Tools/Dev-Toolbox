@@ -12,6 +12,7 @@ import { Parser as SqlParser } from "node-sql-parser"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { CodeTextarea } from "@/components/ui/code-textarea"
 import {
     Select,
     SelectContent,
@@ -191,10 +192,10 @@ export function FormatterViewer({ defaultType = "json", hideSelector = false }: 
             <div className="grid h-full gap-4 md:grid-cols-2 pb-4">
                 <div className="flex flex-col gap-2 h-full">
                     <Label htmlFor="input">Input</Label>
-                    <Textarea
+                    <CodeTextarea
                         id="input"
                         placeholder={`Paste ${type.toUpperCase()} here...`}
-                        className="flex-1 resize-none font-mono text-sm h-full"
+                        className="h-full"
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                     />
@@ -214,10 +215,10 @@ export function FormatterViewer({ defaultType = "json", hideSelector = false }: 
                                 })}
                             </div>
                         ) : (
-                            <Textarea
+                            <CodeTextarea
                                 id="output"
                                 placeholder="Formatted output will appear here..."
-                                className={cn("h-full resize-none font-mono text-sm", error && "border-red-500")}
+                                className={cn("h-full", error && "border-red-500 ring-1 ring-red-500")}
                                 value={error ? error : output}
                                 readOnly
                             />
@@ -226,7 +227,7 @@ export function FormatterViewer({ defaultType = "json", hideSelector = false }: 
                             <Button
                                 size="icon"
                                 variant="ghost"
-                                className="absolute top-2 right-2"
+                                className="absolute top-2 right-6 z-10"
                                 onClick={handleCopy}
                             >
                                 <Copy className="h-4 w-4" />

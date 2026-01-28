@@ -9,6 +9,7 @@ import convert from "xml-js"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { CodeTextarea } from "@/components/ui/code-textarea"
 import {
     Select,
     SelectContent,
@@ -178,9 +179,9 @@ export function ConverterViewer({
                             </Select>
                         )}
                     </div>
-                    <Textarea
+                    <CodeTextarea
                         placeholder={`Paste ${sourceFormat.toUpperCase()} here...`}
-                        className="flex-1 resize-none font-mono text-sm h-full"
+                        className="h-full"
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                     />
@@ -215,17 +216,17 @@ export function ConverterViewer({
                         </div>
                     </div>
                     <div className="relative flex-1 h-full min-h-0">
-                        <Textarea
+                        <CodeTextarea
                             readOnly
                             placeholder="Converted output..."
-                            className="flex-1 resize-none font-mono text-sm h-full"
+                            className="h-full"
                             value={output}
                         />
                         {output && (
                             <Button
                                 size="icon"
                                 variant="ghost"
-                                className="absolute top-2 right-2"
+                                className="absolute top-2 right-6 z-10"
                                 onClick={handleCopy}
                             >
                                 <Copy className="h-4 w-4" />
