@@ -101,10 +101,10 @@ export const toolsConfig: Category[] = [
         tools: [
             { id: "uuid-generator", name: "UUID Generator", slug: "uuid-generator", href: "/tools/uuid-generator", icon: Hash },
             { id: "uuid-validator", name: "UUID Validator", slug: "uuid-validator", href: "/tools/uuid-validator", icon: CheckCircle },
-            { id: "random-string", name: "Random String Generator", slug: "random-string-generator", icon: Type },
-            { id: "fake-data", name: "Fake Data Generator", slug: "fake-data-generator", icon: Copy },
-            { id: "password-generator", name: "Password Generator", slug: "password-generator", icon: Key },
-            { id: "slug-generator", name: "Slug Generator", slug: "slug-generator", icon: LinkIcon }
+            { id: "random-string", name: "Random String Generator", slug: "random-string-generator", href: "/tools/random-string-generator", icon: Type },
+            { id: "fake-data", name: "Fake Data Generator", slug: "fake-data-generator", href: "/tools/fake-data-generator", icon: Copy },
+            { id: "password-generator", name: "Password Generator", slug: "password-generator", href: "/tools/password-generator", icon: Key },
+            { id: "slug-generator", name: "Slug Generator", slug: "slug-generator", href: "/tools/slug-generator", icon: LinkIcon }
         ]
     },
     {
